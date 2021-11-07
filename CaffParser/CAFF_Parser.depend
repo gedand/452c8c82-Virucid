@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1636244083 source:d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<cstddef>
+	<math.h>
+	<string.h>
+
