@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="CAFFParser.cpp" />
+		<Unit filename="CAFFParser.h" />
+		<Unit filename="CIFFParser.cpp" />
+		<Unit filename="CIFFParser.h" />
+		<Unit filename="CustomByteArray.cpp" />
+		<Unit filename="CustomByteArray.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

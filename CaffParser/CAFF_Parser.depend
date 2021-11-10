@@ -1,9 +1,34 @@
 # depslib dependency file v1.0
-1636244083 source:d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\main.cpp
+1636555547 source:d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\main.cpp
 	<iostream>
 	<fstream>
 	<vector>
 	<cstddef>
 	<math.h>
 	<string.h>
+	"CustomByteArray.h"
+	"CIFFParser.h"
+	"CAFFParser.h"
+
+1636555104 source:d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\caffparser.cpp
+	"CAFFParser.h"
+	"CIFFParser.h"
+
+1636554696 source:d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\ciffparser.cpp
+	"CIFFParser.h"
+	<string.h>
+
+1636553986 source:d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\custombytearray.cpp
+	"CustomByteArray.h"
+	<iostream>
+	<math.h>
+
+1636553985 d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\custombytearray.h
+	<vector>
+
+1636555022 d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\ciffparser.h
+	"CustomByteArray.h"
+
+1636554988 d:\egyetem\9.felev\szamitogep_biztonsag\caff_parser\caff_parser\caffparser.h
+	"CustomByteArray.h"
 
