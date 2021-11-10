@@ -1,0 +1,13 @@
+
+Telepítés:
+make
+
+
+Futtatás:
+parancssorban parser.exe meghívása. Pl.: parser.exe 1.caff
+Megjegyzés: az 1.caff az elérési útvonal. Lehet relatív/abszolút.
+
+
+Futási eredmény:
+- helyes formátum: konzolon "Correct format" felirat, CAFF első CIFF képének szélessége, magassága és a pixelei fájlbaíródnak és 1 visszatérési érték
+- rossz formátum: konzolon "Bad format" felirat és 0 visszatérési érték
