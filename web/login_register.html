@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
+    <script src="login_register.js">
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,12 +67,12 @@
               <div class="col-sm-5 col-sm-offset-1 mb-sm-40">
                 <h4 class="font-alt">Login</h4>
                 <hr class="divider-w mb-10">
-                <form class="form">
+                <form name="LoginForm" class="form" onsubmit="return LoginValidationForm()">
                   <div class="form-group">
-                    <input class="form-control" id="username" type="text" name="username" placeholder="Username"/>
+                    <input class="form-control" id="username" type="text" name="Username" placeholder="Username"/>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="password" type="password" name="password" placeholder="Password"/>
+                    <input class="form-control" id="password" type="password" name="Password" placeholder="Password"/>
                   </div>
                   <div class="form-group">
                     <button class="btn btn-round btn-b">Login</button>
@@ -80,18 +82,19 @@
               <div class="col-sm-5">
                 <h4 class="font-alt">Register</h4>
                 <hr class="divider-w mb-10">
-                <form class="form">
+                <form name="RegisterForm" class="form" onsubmit="return RegisterValidationForm()" >
                   <div class="form-group">
-                    <input class="form-control" id="E-mail" type="text" name="email" placeholder="Email"/>
+                    <input class="form-control" id="email" type="text" name="Email" placeholder="Email"/>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="username" type="text" name="username" placeholder="Username"/>
+                    <input class="form-control" id="username" type="text" name="Username" placeholder="Username"/>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="password" type="password" name="password" placeholder="Password"/>
+                    <input class="form-control" id="password" type="password" name="Password" placeholder="Password" onkeyup="CheckPasswordStrength(this.value)"/>
+                    <span id="password_strength" style="color: darkorange;"></span>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="re-password" type="password" name="re-password" placeholder="Re-enter Password"/>
+                    <input class="form-control" id="rePassword" type="password" name="re-RePassword" placeholder="RePassword"/>
                   </div>
                   <div class="form-group">
                     <button class="btn btn-block btn-round btn-b">Register</button>
