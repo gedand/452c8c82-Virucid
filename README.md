@@ -7,6 +7,7 @@ Használat:
 
 #Terminál 2 - üzenet küldés
 >python req.py
+
 Ha más üzenetet akarsz, akkor át kell írni a req.py-t
 
 
