@@ -1,14 +1,12 @@
 import string
 from datetime import date
-import os
-from random import random, SystemRandom
+from random import SystemRandom
 
 from flask import request
 from flask_restful import Resource
 
 from datab.database import CAFFFiles
 from datab.shared import db
-from methods.input_sanitization import input_sanitization
 from methods.parsing import parsing
 from methods.token_valid import token_valid
 

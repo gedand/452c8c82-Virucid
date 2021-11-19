@@ -1,24 +1,33 @@
-from operator import and_
-from flask import Flask, request
-from flask_restful import Api, Resource
-from flask_sqlalchemy import SQLAlchemy
-from datetime import date
-from methods.input_sanitization import input_sanitization
-from methods.token_valid import token_valid
-from methods.parsing import parsing
+from flask import request
+from flask_restful import Resource
 
-from datab.database import User
+from datab.database import CAFFFiles, CAFFComments
 from datab.shared import db
+from methods.token_valid import token_valid
+
+
+# TODO: hol adjuk vissza a frontendnek
 
 class Comment(Resource):
     def post(self):
         try:
-            if request.method == 'POST':
-                filename = input_sanitization(request.form['filename'])
-                comment = input_sanitization(request.form['comment'])
+            # TODO: dummy
+            if token_valid('dummy') and request.method == 'POST':
+                fileid = request.form['fileid']
+                comment = request.form['comment']
+                # id_exists
+                g = CAFFFiles.query.get(fileid)
+                if g:
+                    # id_exists ALT TRUE
+                    comment = CAFFComments(fileid=int(fileid), comment=comment)
+                    db.session.add(comment)
+                    db.session.commit()
+                    return str(200)
+                else:
+                    # id_exists ALT FALSE
+                    return str(404)
             else:
                 # raise Exception("Not post", request.method)
                 return str(403)
-            return 0
         except Exception as e:
             print(e)

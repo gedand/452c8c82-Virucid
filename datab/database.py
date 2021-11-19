@@ -23,7 +23,8 @@ class CAFFFiles(db.Model):
 
 class CAFFComments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    fileid = db.Column(db.Integer, unique=False, nullable=False)
     comment = db.Column(db.String(), unique=False, nullable=False)
 
     def __repr__(self):
-        return " - ".join(['CAFF comment', str(self.id), str(self.comment)])
+        return "||".join([str(self.fileid), str(self.comment)])

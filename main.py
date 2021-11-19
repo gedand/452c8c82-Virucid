@@ -1,15 +1,12 @@
-from operator import and_
-from flask import Flask, request, render_template
-from flask_restful import Api, Resource
-from flask_sqlalchemy import SQLAlchemy
-from datetime import date
+from flask import Flask
+from flask_restful import Api
 
+from datab.shared import db
 from resources.comment import Comment
 from resources.delete import Delete
 from resources.download import Download
 from resources.login import Login
 from resources.registration import Registration
-from datab.shared import db
 from resources.search import Search
 from resources.upload import Upload
 
