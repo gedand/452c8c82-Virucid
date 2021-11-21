@@ -5,7 +5,6 @@ from flask_restful import Resource
 
 from datab.database import CAFFFiles
 from datab.shared import db
-from methods.token_valid import token_valid
 
 
 class Search(Resource):

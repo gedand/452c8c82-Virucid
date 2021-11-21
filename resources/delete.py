@@ -5,7 +5,6 @@ from flask_restful import Resource
 
 from datab.database import CAFFFiles
 from datab.shared import db
-from methods.token_valid import token_valid
 
 
 # TODO: is_admin?
@@ -17,11 +16,11 @@ class Delete(Resource):
     def post(self):
         try:
             # TODO: dummy
-            if token_valid('dummy') and request.method == 'POST' and is_admin():
+            if token_valid('dummy') and is_admin():
                 # is_admin ALT TRUE
                 # id_exists ALT TRUE
-                fileid = request.form['fileid']
-                g = CAFFFiles.query.get(fileid)
+                file_id = request.form['file_id']
+                g = CAFFFiles.query.get(file_id)
                 if g:
                     os.remove(g.location)
                     db.session.delete(g)
