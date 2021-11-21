@@ -1,9 +1,11 @@
 Használat:
 
+Az alkalmazás Python3-mal működik.
+
 #Terminál 1 - Szerver inditás
 >pip install -r requirements.txt
 
->python main.py
+>python app.py
 #Terminál 2 - üzenet küldés
 >python req.py
 

@@ -5,3 +5,7 @@ Flask-SQLAlchemy==2.5.1
 numpy==1.21.4
 requests==2.26.0
 SQLAlchemy==1.4.27
+flask_marshmallow
+marshmallow
+flask_api
+pycryptodome
