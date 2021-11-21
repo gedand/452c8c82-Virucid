@@ -25,7 +25,7 @@ class Login(Resource):
     def post(self):
         try:
             # input sanitization
-            credentials = self.schema.load(request.json)
+            credentials = self.schema.load(request.form)
             username = credentials['username']
             password = credentials['password']
 
@@ -54,7 +54,7 @@ def credentials_check(username, password):
         access_token = create_access_token(identity=user).decode('utf-8')
         return jsonify({'access_token': access_token})
     else:
-        raise ValueError('Password does not match')
+        raise ValueError('Passwords do not match')
 
 def check_password(user_in_db, password):
     salt_in_db = user_in_db.salt
