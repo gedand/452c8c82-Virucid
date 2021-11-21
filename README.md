@@ -4,7 +4,6 @@ Használat:
 >pip install -r requirements.txt
 
 >python main.py
-
 #Terminál 2 - üzenet küldés
 >python req.py
 
