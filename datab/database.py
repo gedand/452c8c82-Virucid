@@ -11,6 +11,11 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+    def to_json(self):
+        user_object =  {
+            'username': self.username,
+            'access_token': self.access_token
+        }
 
 class CAFFFiles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,8 +29,8 @@ class CAFFFiles(db.Model):
 
 class CAFFComments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    fileid = db.Column(db.Integer, unique=False, nullable=False)
+    file_id = db.Column(db.Integer, unique=False, nullable=False)
     comment = db.Column(db.String(), unique=False, nullable=False)
 
     def __repr__(self):
-        return "||".join([str(self.fileid), str(self.comment)])
+        return "||".join([str(self.file_id), str(self.comment)])

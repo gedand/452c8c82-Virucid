@@ -80,7 +80,7 @@ db.create_all()
 
 api.add_resource(Registration, "/registration")
 api.add_resource(Login, "/login")
-api.add_resource(Download, "/download/<string:fileid>")
+api.add_resource(Download, "/download/<string:location>")
 api.add_resource(Upload, "/upload")
 api.add_resource(Comment, "/comment")
 api.add_resource(Search, "/search/<int:get_all>/<string:from_date>/<string:to_date>")

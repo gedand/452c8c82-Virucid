@@ -25,7 +25,7 @@ class Login(Resource):
     def post(self):
         try:
             # input sanitization
-            credentials = self.schema.load(request.form)
+            credentials = self.schema.load(request.json)
             username = credentials['username']
             password = credentials['password']
 

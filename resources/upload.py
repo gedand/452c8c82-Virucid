@@ -2,13 +2,21 @@ import string
 from datetime import date
 from random import SystemRandom
 
+from flask import json, request
+from flask import current_app as app
+from flask_restful import Resource
 from flask import request
 from flask_restful import Resource
+from marshmallow import Schema, fields, ValidationError
 
 from datab.database import CAFFFiles
 from datab.shared import db
-from methods.parsing import parsing
-from methods.token_valid import token_valid
+from helper.parsing import parsing
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
+from helper.user_helper import UserHelper
+from validators.upload_validator import UploadValidator
+from helper.error_message import ErrorMessage
 
 
 def save_file(file):
@@ -27,35 +35,40 @@ def save_file(file):
             counter += 1
             pass
 
-    f.write("dummy\n" + file)
+    f.write(str(file)) # TODO: képként mentse a fájlt
     return path
 
+class UploadSchema(Schema):
+    file = fields.Raw(required=True,error_messages={"required": "File is required."}, validate=UploadValidator().validate)
 
 class Upload(Resource):
+    def __init__(self):
+        super().__init__()
+        self.schema = UploadSchema()
+
+    @jwt_required()
     def post(self):
         try:
-            # TODO: dummy
-            if token_valid('dummy') and request.method == 'POST':
+            user_id = get_jwt_identity()
+            UserHelper.get_user(id = user_id)
+            file = self.schema.load(request.files)['file']
+            # parsing
+            parsed_file = parsing(file) # TODO: Robival egyeztetni
+            if parsed_file is not None:
+                # send_path_with_date_to_database
+                path_to_file = save_file(parsed_file).split('/')[-1]
+                file = CAFFFiles(date=date.today(), location=path_to_file)
+                db.session.add(file)
+                db.session.commit()
 
-                file = request.form['file']
-                # parsing
-                parsed_file = parsing(file)
-
-                if parsed_file is not None:
-                    # parsing ALT TRUE
-
-                    # send_path_with_date_to_database
-                    path_to_file = save_file(parsed_file)
-                    file = CAFFFiles(date=date.today(), location=path_to_file)
-                    db.session.add(file)
-                    db.session.commit()
-
-                    # return str(path_to_file)  # --- real
-                    return str(CAFFFiles.query.all())  # --- debug
-                else:
-                    # parsing ALT FALSE
-                    return str(415)
+                # return str(path_to_file)  # TODO: --- real
+                return str(CAFFFiles.query.all())  # --- debug
             else:
-                return str(403)
+                raise ValueError('Parsed_file is None')
+        
+        except (ValidationError, ValueError) as v:
+            app.logger.error(v)
+            return ErrorMessage.forbidden("Something is wrong with the file")
         except Exception as e:
-            print(e)
+            app.logger.error(e)
+            return ErrorMessage.server()
