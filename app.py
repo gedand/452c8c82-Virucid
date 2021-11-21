@@ -10,6 +10,8 @@ from resources.registration import Registration
 from resources.search import Search
 from resources.upload import Upload
 from logging.config import dictConfig
+from Crypto.Random import get_random_bytes
+from flask_jwt_extended import JWTManager
 
 # Configure logging first
 dictConfig({
@@ -41,9 +43,29 @@ dictConfig({
 app = Flask(__name__)
 api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db = SQLAlchemy(app)
 db.app = app
 db.init_app(app)
+
+# JWT Token init
+app.config['JWT_SECRET_KEY'] = get_random_bytes(32)
+jwt = JWTManager(app)
+
+# Set JWT custom claims
+@jwt.additional_claims_loader
+def add_claims_to_access_token(user):
+    return {
+        'username': user.username, 
+        'is_admin': user.is_admin
+    }
+
+# Generate JWT identity
+@jwt.user_identity_loader
+def user_identity_lookup(user):
+    return user.id
+
+
 
 # engine = db.create_engine('sqlite:///census.sqlite')
 # connection = engine.connect()

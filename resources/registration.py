@@ -9,12 +9,16 @@ from Crypto.Protocol.KDF import PBKDF2
 from Crypto.Hash import SHA512
 from Crypto.Random import get_random_bytes
 
-from validators.registration_validator import RegistrationValidator
+from validators.username_validator import UsernameValidator
+from validators.password_validator import PasswordValidator
+from helper.password_helper import PasswordHelper
+from helper.error_message import ErrorMessage
 
 class RegistrationSchema(Schema):
-    validator = RegistrationValidator()
-    username = fields.Str(required=True,error_messages={"required": "Username is required."}, validate=validator.username_check)
-    password = fields.Str(required=True, error_messages={"required": "Password is required."}, validate=validator.password_check)
+    username_validator = UsernameValidator()
+    password_validator = PasswordValidator()
+    username = fields.Str(required=True,error_messages={"required": "Username is required."}, validate=username_validator.username_register)
+    password = fields.Str(required=True, error_messages={"required": "Password is required."}, validate=password_validator.password_check)
 
 class Registration(Resource):
     def __init__(self):
@@ -27,19 +31,20 @@ class Registration(Resource):
             credentials = self.schema.load(request.form)
             username = credentials['username']
             password_hash, salt = self.hash_password(credentials['password'])
-            print(password_hash)
             guest = User(username=username, password=password_hash, salt=salt, is_admin=0)
             db.session.add(guest)
             db.session.commit()
             # successful_registration_feedback
-            return 'User successfully registered', status.HTTP_200_OK
+            app.logger.info('User ' + username + ' successfully registered')
+            return ErrorMessage.OK('User ' + username + ' successfully registered')
+            
         except ValidationError as v:
             app.logger.error(v)
-            return str(v), status.HTTP_400_BAD_REQUEST
+            return ErrorMessage.forbidden(str(v))
         except Exception as e:
             app.logger.error(e)
-            return 'SERVER ERROR', status.HTTP_500_INTERNAL_SERVER_ERROR
+            return ErrorMessage.server()
     
     def hash_password(self, password):
         salt = get_random_bytes(16)
-        return PBKDF2(password.encode('UTF-8'), salt, dkLen=16, count=200000, hmac_hash_module=SHA512), salt
+        return PasswordHelper.hash_password(password, salt), salt
