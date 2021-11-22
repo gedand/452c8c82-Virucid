@@ -12,14 +12,15 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from helper.user_helper import UserHelper
 from validators.comment_validator import CommentValidator
+from validators.file_id_validator import FileIdValidator
 from validators.upload_validator import UploadValidator
 from helper.error_message import ErrorMessage
 
 
 # TODO: hol adjuk vissza a frontendnek
 class CommentSchema(Schema):
-    file_id = fields.Number(required=True,error_messages={"required": "File id is required."}, validate=CommentValidator().file_id_validate)
-    comment = fields.Str(required=True,error_messages={"required": "Comment is required."}, validate=CommentValidator().comment_validate)
+    file_id = fields.Number(required=True,error_messages={"required": "File id is required."}, validate=FileIdValidator().validate)
+    comment = fields.Str(required=True,error_messages={"required": "Comment is required."}, validate=CommentValidator().validate)
 
 class Comment(Resource):
     def __init__(self):
@@ -45,7 +46,7 @@ class Comment(Resource):
                 return ErrorMessage.OK()
             else:
                 # id_exists ALT FALSE
-                raise ValueError("Comment couldn't be found in DB")
+                raise ValueError("File ID couldn't be found in DB")
 
         
         except (ValidationError, ValueError) as v:
