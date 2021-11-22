@@ -11,14 +11,15 @@ from validators.download_validator import DownloadValidator
 
 class Download(Resource):
     @jwt_required()
-    def get(self, location):
+    def get(self, filename):
         try:
             user_id = get_jwt_identity()
             UserHelper.get_user(id = user_id)
 
-            g = CAFFFiles.query.filter_by(location = location).first()
+            DownloadValidator().validate(filename)
+            g = CAFFFiles.query.filter_by(caff_location = filename).first()
             # id_exists ALT TRUE
-            return send_from_directory(current_app.root_path, 'files/' + g.location, as_attachment=True)
+            return send_from_directory(current_app.root_path, 'files/' + g.caff_location, as_attachment=True)
 
         except (ValidationError, ValueError) as v:
             app.logger.error(v)

@@ -6,7 +6,6 @@ from flask import json, request
 from flask import current_app as app
 from flask_restful import Resource
 from flask import request
-from flask_restful import Resource
 from marshmallow import Schema, fields, ValidationError
 
 from datab.database import CAFFFiles
@@ -57,7 +56,8 @@ class Upload(Resource):
             if parsed_file is not None:
                 # send_path_with_date_to_database
                 path_to_file = save_file(parsed_file).split('/')[-1]
-                file = CAFFFiles(date=date.today(), location=path_to_file)
+                # TODO: itt az img_location tényleg az img_locationra kéne vonatkozzon
+                file = CAFFFiles(date=date.today(), caff_location=path_to_file, img_location=path_to_file)
                 db.session.add(file)
                 db.session.commit()
 
