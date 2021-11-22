@@ -1,4 +1,5 @@
 from flask import request
+from flask.json import jsonify
 from flask_restful import Resource
 from marshmallow import Schema, fields, ValidationError
 from datab.database import User
@@ -37,10 +38,14 @@ class Registration(Resource):
             # successful_registration_feedback
             app.logger.info('User ' + username + ' successfully registered')
             return ErrorMessage.OK('User ' + username + ' successfully registered')
-            
+
         except ValidationError as v:
+            if 'required' in str(v):
+                err_message = "Username and password are required"
+            elif 'taken' in str(v):
+                err_message = "Username is taken"
             app.logger.error(v)
-            return ErrorMessage.forbidden(str(v))
+            return ErrorMessage.forbidden(err_message)
         except Exception as e:
             app.logger.error(e)
             return ErrorMessage.server()
