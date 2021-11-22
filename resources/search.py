@@ -7,7 +7,7 @@ from datab.shared import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from helper.date_converter import DateConverter
 from helper.error_message import ErrorMessage
-from helper.search_helper import SearchHelper
+from helper.json_helper import JsonHelper
 from helper.user_helper import UserHelper
 from marshmallow import Schema, fields, ValidationError
 from flask import request, jsonify
@@ -38,7 +38,7 @@ class Search(Resource):
                     and_(CAFFFiles.date <= to_date,
                             CAFFFiles.date >=from_date))
 
-            files = SearchHelper.caff_files_to_json(u)
+            files = JsonHelper.search_to_json(u)
             return jsonify({'content': files})
 
 

@@ -1,7 +1,7 @@
 # Helper function to give back JSON for search
-class SearchHelper:
+class JsonHelper:
     @staticmethod
-    def caff_files_to_json(u):
+    def search_to_json(u):
         files = {}
         num = 1
 

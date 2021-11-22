@@ -2,7 +2,7 @@ import string
 from datetime import date
 from random import SystemRandom
 
-from flask import json, request
+from flask import json, request, jsonify
 from flask import current_app as app
 from flask_restful import Resource
 from flask import request
@@ -10,6 +10,7 @@ from marshmallow import Schema, fields, ValidationError
 
 from datab.database import CAFFFiles
 from datab.shared import db
+from helper.json_helper import JsonHelper
 from helper.parsing import parsing
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -62,7 +63,8 @@ class Upload(Resource):
                 db.session.commit()
 
                 # return str(path_to_file)  # TODO: --- real
-                return str(CAFFFiles.query.all())  # --- debug
+                files = JsonHelper.search_to_json(CAFFFiles.query.all()) # TODO: most mindent listáz, bár nem feltétlen baj
+                return jsonify({"content": files})
             else:
                 raise ValueError('Parsed_file is None')
         
