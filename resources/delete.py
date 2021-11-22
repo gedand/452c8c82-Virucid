@@ -37,14 +37,15 @@ class Delete(Resource):
             file_id = self.schema.load(request.form)['file_id']
 
             g = CAFFFiles.query.get(file_id)
-            if g:
-                os.remove("files/" + g.caff_location)
-                db.session.delete(g)
-                db.session.commit()
-                return ErrorMessage.OK()
-            else:
-                # id_exists ALT FALSE
+            if g is None:
                 raise ValueError("File ID couldn't be found in DB")
+                
+            os.remove("files/" + g.caff_location)
+            db.session.delete(g)
+            db.session.commit()
+            return ErrorMessage.OK()
+
+
 
         except (ValidationError, ValueError) as v:
             app.logger.error(v)

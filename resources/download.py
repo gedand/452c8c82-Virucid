@@ -18,13 +18,15 @@ class Download(Resource):
 
             DownloadValidator().validate(filename)
             g = CAFFFiles.query.filter_by(caff_location = filename).first()
+            if g is None:
+                raise ValueError("File couldn't be found in DB")
             
             # TODO: különválasztani, amikor kép, és amikor caff fájlt ad vissza
             return send_from_directory(current_app.root_path, 'files/' + g.caff_location, as_attachment=True)
 
         except (ValidationError, ValueError) as v:
             app.logger.error(v)
-            return ErrorMessage.forbidden("Filename is not correct")
+            return ErrorMessage.forbidden("Filename is not correct or file couldn't be found")
         except Exception as e:
             app.logger.error(e)
             return ErrorMessage.server()

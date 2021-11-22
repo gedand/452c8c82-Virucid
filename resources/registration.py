@@ -1,3 +1,4 @@
+from logging import error
 from flask import request
 from flask.json import jsonify
 from flask_restful import Resource
@@ -44,6 +45,8 @@ class Registration(Resource):
                 err_message = "Username and password are required"
             elif 'taken' in str(v):
                 err_message = "Username is taken"
+            else:
+                err_message = "Username or password does not meet requirements"
             app.logger.error(v)
             return ErrorMessage.forbidden(err_message)
         except Exception as e:

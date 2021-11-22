@@ -38,15 +38,15 @@ class Comment(Resource):
 
             # id_exists
             g = CAFFFiles.query.get(file_id)
-            if g:
-                # id_exists ALT TRUE
-                comment = CAFFComments(file_id=int(file_id), comment=comment)
-                db.session.add(comment)
-                db.session.commit()
-                return ErrorMessage.OK()
-            else:
-                # id_exists ALT FALSE
+            if g is None:
                 raise ValueError("File ID couldn't be found in DB")
+                
+            comment = CAFFComments(file_id=int(file_id), comment=comment)
+            db.session.add(comment)
+            db.session.commit()
+            return ErrorMessage.OK()
+
+
 
         
         except (ValidationError, ValueError) as v:

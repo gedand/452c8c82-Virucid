@@ -5,6 +5,7 @@ class JsonHelper:
         files = {}
         num = 1
 
+        # TODO: kommentek is menjenek hozzá
         for row in u:
             files[num] = {
                 "image": row.img_location,
