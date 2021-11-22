@@ -76,7 +76,6 @@ def user_identity_lookup(user):
 # db.drop_all()
 db.create_all()
 
-# TODO: token majd Sanyi nem a bodyban
 
 api.add_resource(Registration, "/registration")
 api.add_resource(Login, "/login")

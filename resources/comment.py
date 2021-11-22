@@ -1,4 +1,4 @@
-from flask import json, request, jsonify
+from flask import request
 from flask import current_app as app
 from flask_restful import Resource
 from flask import request
@@ -40,7 +40,7 @@ class Comment(Resource):
             g = CAFFFiles.query.get(file_id)
             if g is None:
                 raise ValueError("File ID couldn't be found in DB")
-                
+
             comment = CAFFComments(file_id=int(file_id), comment=comment)
             db.session.add(comment)
             db.session.commit()
