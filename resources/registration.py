@@ -5,7 +5,7 @@ from flask_restful import Resource
 from marshmallow import Schema, fields, ValidationError
 from datab.database import User
 from datab.shared import db
-from flask import current_app  as app
+from flask import current_app as app
 from flask_api import status
 from Crypto.Protocol.KDF import PBKDF2
 from Crypto.Hash import SHA512
@@ -16,11 +16,15 @@ from validators.password_validator import PasswordValidator
 from helper.password_helper import PasswordHelper
 from helper.error_message import ErrorMessage
 
+
 class RegistrationSchema(Schema):
     username_validator = UsernameValidator()
     password_validator = PasswordValidator()
-    username = fields.Str(required=True,error_messages={"required": "Username is required."}, validate=username_validator.username_register)
-    password = fields.Str(required=True, error_messages={"required": "Password is required."}, validate=password_validator.password_check)
+    username = fields.Str(required=True, error_messages={"required": "Username is required."},
+                          validate=username_validator.username_register)
+    password = fields.Str(required=True, error_messages={"required": "Password is required."},
+                          validate=password_validator.password_check)
+
 
 class Registration(Resource):
     def __init__(self):
@@ -52,7 +56,7 @@ class Registration(Resource):
         except Exception as e:
             app.logger.error(e)
             return ErrorMessage.server()
-    
+
     def hash_password(self, password):
         salt = get_random_bytes(16)
         return PasswordHelper.hash_password(password, salt), salt

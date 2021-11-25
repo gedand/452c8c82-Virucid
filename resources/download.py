@@ -14,13 +14,13 @@ class Download(Resource):
     def get(self, filename):
         try:
             user_id = get_jwt_identity()
-            UserHelper.get_user(id = user_id)
+            UserHelper.get_user(id=user_id)
 
             DownloadValidator().validate(filename)
-            g = CAFFFiles.query.filter_by(caff_location = filename).first()
+            g = CAFFFiles.query.filter_by(caff_location=filename).first()
             if g is None:
                 raise ValueError("File couldn't be found in DB")
-            
+
             # TODO: különválasztani, amikor kép, és amikor caff fájlt ad vissza
             return send_from_directory(current_app.root_path, 'files/' + g.caff_location, as_attachment=True)
 

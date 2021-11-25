@@ -1,8 +1,9 @@
 from datab.database import User
 
+
 class UserHelper:
 
-    def get_user(username = "" , id = ""):
+    def get_user(username="", id=""):
         if not username and not id:
             raise Exception("Incorrect parameters for get_user function")
         if username:

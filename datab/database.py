@@ -12,10 +12,11 @@ class User(db.Model):
         return '<User %r>' % self.username
 
     def to_json(self):
-        user_object =  {
+        user_object = {
             'username': self.username,
             'access_token': self.access_token
         }
+
 
 class CAFFFiles(db.Model):
     id = db.Column(db.Integer, primary_key=True)

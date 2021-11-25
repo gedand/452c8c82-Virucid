@@ -10,6 +10,6 @@ class JsonHelper:
             files[num] = {
                 "image": row.img_location,
                 "caff": row.caff_location
-                }
-            num+=1
+            }
+            num += 1
         return files

@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 from marshmallow import Schema, fields, ValidationError
 from datab.database import User
-from flask import current_app  as app
+from flask import current_app as app
 from helper.error_message import ErrorMessage
 from validators.username_validator import UsernameValidator
 from validators.password_validator import PasswordValidator
@@ -11,11 +11,15 @@ from helper.password_helper import PasswordHelper
 from flask_jwt_extended import create_access_token
 from flask import jsonify
 
+
 class LoginSchema(Schema):
     username_validator = UsernameValidator()
     password_validator = PasswordValidator()
-    username = fields.Str(required=True,error_messages={"required": "Username is required."}, validate=username_validator.username_login)
-    password = fields.Str(required=True, error_messages={"required": "Password is required."}, validate=password_validator.password_check)
+    username = fields.Str(required=True, error_messages={"required": "Username is required."},
+                          validate=username_validator.username_login)
+    password = fields.Str(required=True, error_messages={"required": "Password is required."},
+                          validate=password_validator.password_check)
+
 
 class Login(Resource):
     def __init__(self):
@@ -55,6 +59,7 @@ def credentials_check(username, password):
         return jsonify({'access_token': access_token})
     else:
         raise ValueError('Passwords do not match')
+
 
 def check_password(user_in_db, password):
     salt_in_db = user_in_db.salt

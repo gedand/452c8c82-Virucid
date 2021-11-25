@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 
@@ -52,19 +54,20 @@ db.init_app(app)
 app.config['JWT_SECRET_KEY'] = get_random_bytes(32)
 jwt = JWTManager(app)
 
+
 # Set JWT custom claims
 @jwt.additional_claims_loader
 def add_claims_to_access_token(user):
     return {
-        'username': user.username, 
+        'username': user.username,
         'is_admin': user.is_admin
     }
+
 
 # Generate JWT identity
 @jwt.user_identity_loader
 def user_identity_lookup(user):
     return user.id
-
 
 
 # engine = db.create_engine('sqlite:///census.sqlite')
@@ -75,7 +78,6 @@ def user_identity_lookup(user):
 # TODO: Kiszedni a végén a kommentet is
 # db.drop_all()
 db.create_all()
-
 
 api.add_resource(Registration, "/registration")
 api.add_resource(Login, "/login")

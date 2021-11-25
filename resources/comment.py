@@ -19,8 +19,11 @@ from helper.error_message import ErrorMessage
 
 # TODO: hol adjuk vissza a frontendnek
 class CommentSchema(Schema):
-    file_id = fields.Number(required=True,error_messages={"required": "File id is required."}, validate=FileIdValidator().validate)
-    comment = fields.Str(required=True,error_messages={"required": "Comment is required."}, validate=CommentValidator().validate)
+    file_id = fields.Number(required=True, error_messages={"required": "File id is required."},
+                            validate=FileIdValidator().validate)
+    comment = fields.Str(required=True, error_messages={"required": "Comment is required."},
+                         validate=CommentValidator().validate)
+
 
 class Comment(Resource):
     def __init__(self):
@@ -31,8 +34,8 @@ class Comment(Resource):
     def post(self):
         try:
             user_id = get_jwt_identity()
-            UserHelper.get_user(id = user_id)
-            
+            UserHelper.get_user(id=user_id)
+
             file_id = self.schema.load(request.form)['file_id']
             comment = self.schema.load(request.form)['comment']
 
@@ -46,9 +49,6 @@ class Comment(Resource):
             db.session.commit()
             return ErrorMessage.OK()
 
-
-
-        
         except (ValidationError, ValueError) as v:
             app.logger.error(v)
             return ErrorMessage.forbidden("Something is wrong with the comment or the id")
