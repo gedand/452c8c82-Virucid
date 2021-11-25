@@ -1,4 +1,8 @@
+
+
 function RegisterValidationForm() {
+
+
     let username = document.forms["RegisterForm"]["Username"];
     let email = document.forms["RegisterForm"]["Email"];
     let password = document.forms["RegisterForm"]["Password"];
@@ -26,20 +30,22 @@ function RegisterValidationForm() {
     }
     if(password.value == "") {
       alert("Please enter your password");
-      pass.focus();
+      password.focus();
       return false;
     }
-    if(password.value != rePassword) {
-        alert("Please enter your password");
-        pass.focus();
+    if(password.value != rePassword.value) {
+      alert("Password and confirm password not the same");
+      rePassword.focus();
         return false;
       }
-      if(CheckPasswordStrength(password.value)<2){
+   /*   if(CheckPasswordStrength(password.value)<2){
           alert("A jelszónak tartalmaznia kell legalább 1db kis-, 1db nagy betűt,és 1 számot")
           pass.focus();
           return false
-      }
-    return true;
+      }*/
+      
+      
+    registrationPost(username.value,password.value);
   }
   function LoginValidationForm()
   {
@@ -56,6 +62,9 @@ function RegisterValidationForm() {
         username.focus();
         return false;
       }
+
+      loginPost(username.value,password.value);
+
   }
   function CheckPasswordStrength(password) {
     var password_strength = document.getElementById("password_strength");
@@ -114,3 +123,139 @@ function RegisterValidationForm() {
     password_strength.style.color = color;
     return passed
 }
+
+function uploadPost(imageName)
+{
+    var url = "http://localhost:5000/upload";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+    }};
+
+    var data = `{
+    "file":"sanyiq"
+    }`;
+    xhr.send(data);
+}
+
+function registrationPost(username,password)
+{
+    var formData = new FormData();
+
+    formData.append("username", username);
+    formData.append("password", password); 
+
+    var url = "http://localhost:5000/registration";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.onreadystatechange = function () {
+      const responseObj = JSON.parse(xhr.responseText);
+    if (xhr.readyState === 4) {
+      if(responseObj.status=="success")
+      {
+        alert(responseObj.message);
+      }
+      else
+      {
+        console.log(responseObj.status);
+        console.log(responseObj.message);
+        alert(responseObj.message);
+      }
+
+    }};
+
+
+    xhr.send(formData);
+}
+
+function deleteImagePost(fileId)
+{
+    var url = "http://localhost:5000/delete";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+    }};
+
+    var data = `{
+        {'fileid': '1'}
+    }`;
+    xhr.send(data);
+}
+function loginPost(username,password)
+{
+  var formData = new FormData();
+
+    var url = "http://localhost:5000/login";
+    var data = {};
+    data.username=username;
+    data.password=password;
+    //formData.append("username", username);
+    //formData.append("password", password); 
+    jsonData=JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+
+    xhr.onreadystatechange = function () {
+      const responseObj = JSON.parse(xhr.responseText);
+    if (xhr.readyState === 4) {
+      if(xhr.status==200)
+      {
+        sessionStorage.setItem('token', responseObj.access_token);
+        window.location.href = 'index.html';
+      }
+      /*if(responseObj.status=="success")
+      {
+        alert(responseObj.message);
+      }
+      else
+      {
+        console.log(responseObj.status);
+        console.log(responseObj.message);
+        alert(responseObj.message);
+      }*/
+
+    }};
+    xhr.send(jsonData);
+}
+
+function commentPost(username,password)
+{
+
+    var url = "http://localhost:5000/comment";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+    }};
+
+    var data = `{
+        'fileid': '1', 'comment': 'de rusnya :*'
+    }`;
+    xhr.send(data);
+}
+

@@ -3,6 +3,9 @@
   <head>
     <script src="login_register.js">
     </script>
+    <script src ="requests.js">
+
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,7 +70,7 @@
               <div class="col-sm-5 col-sm-offset-1 mb-sm-40">
                 <h4 class="font-alt">Login</h4>
                 <hr class="divider-w mb-10">
-                <form name="LoginForm" class="form" onsubmit="return LoginValidationForm()">
+                <form name="LoginForm" id="loginForm" class="form">
                   <div class="form-group">
                     <input class="form-control" id="username" type="text" name="Username" placeholder="Username"/>
                   </div>
@@ -75,14 +78,14 @@
                     <input class="form-control" id="password" type="password" name="Password" placeholder="Password"/>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-round btn-b">Login</button>
+                    <button class="btn btn-round btn-b" id="loginButton" onclick="LoginValidationForm()">Login</button>
                   </div>
                 </form>
               </div>
               <div class="col-sm-5">
                 <h4 class="font-alt">Register</h4>
                 <hr class="divider-w mb-10">
-                <form name="RegisterForm" class="form" onsubmit="return RegisterValidationForm()" >
+                <form name="RegisterForm" id="registerForm" class="form">
                   <div class="form-group">
                     <input class="form-control" id="email" type="text" name="Email" placeholder="Email"/>
                   </div>
@@ -94,10 +97,10 @@
                     <span id="password_strength" style="color: darkorange;"></span>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="rePassword" type="password" name="re-RePassword" placeholder="RePassword"/>
+                    <input class="form-control" id="rePassword" type="password" name="RePassword" placeholder="RePassword"/>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b">Register</button>
+                    <button id="registerButton" onclick="RegisterValidationForm()"  type="submit" class="btn btn-block btn-round btn-b">Register</button>
                   </div>
                 </form>
               </div>
@@ -122,6 +125,15 @@
         document.getElementById("myForm").style.display = "none";
       }
       </script>
+      <script>
+        document.getElementById("registerForm").addEventListener("click", function(event){
+          event.preventDefault()
+        });
+        document.getElementById("loginForm").addEventListener("click", function(event){
+          event.preventDefault()
+        });
+        
+        </script>
     <script src="assets/lib/jquery.js"></script>
     <script src="assets/lib/bootstrap.min.js"></script>
     <script src="assets/lib/wow.js"></script>
