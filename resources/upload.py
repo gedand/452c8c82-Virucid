@@ -1,22 +1,23 @@
+import os
 import string
+import sys
 from datetime import date
 from random import SystemRandom
 
-from flask import json, request, jsonify
 from flask import current_app as app
-from flask_restful import Resource
+from flask import jsonify
 from flask import request
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_restful import Resource
 from marshmallow import Schema, fields, ValidationError
 
 from datab.database import CAFFFiles
 from datab.shared import db
+from helper.error_message import ErrorMessage
 from helper.json_helper import JsonHelper
 from helper.parsing import parsing
-from flask_jwt_extended import jwt_required, get_jwt_identity
-
 from helper.user_helper import UserHelper
 from validators.upload_validator import UploadValidator
-from helper.error_message import ErrorMessage
 
 
 def save_file(file):
@@ -56,12 +57,12 @@ class Upload(Resource):
             UserHelper.get_user(id=user_id)
             file = self.schema.load(request.files)['file']
             # parsing
-            parsed_file = parsing(file)  # TODO: Robival egyeztetni
-            if parsed_file is not None:
+            caff_filename, jpeg_filename = parsing(file)  # TODO: Robival egyeztetni
+            if caff_filename is not None and jpeg_filename is not None:
                 # send_path_with_date_to_database
-                path_to_file = save_file(parsed_file).split('/')[-1]
+                # path_to_file = save_file(parsed_file).split('/')[-1]
                 # TODO: itt az img_location tényleg az img_locationra kéne vonatkozzon
-                file = CAFFFiles(date=date.today(), caff_location=path_to_file, img_location=path_to_file)
+                file = CAFFFiles(date=date.today(), caff_location=caff_filename, img_location=jpeg_filename)
                 db.session.add(file)
                 db.session.commit()
 

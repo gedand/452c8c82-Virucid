@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from flask import Flask
 from flask_restful import Api
@@ -88,4 +89,20 @@ api.add_resource(Search, "/search")
 api.add_resource(Delete, "/delete")
 
 if __name__ == '__main__':
+    # print(os.getcwd())
+    # path = os.getcwd()
+    # os.chdir(os.getcwd()+"\\tmp_caff")
+    # print(os.getcwd())
+    # os.system("parser.exe 1.caff")
+    # os.chdir(path)
+    # print(os.getcwd())
+
+    # f = os.getcwd()+"\\tmp_caff\\parser.exe tmp_caff\\1.caff"
+    # print(f)
+    # os.system(f)
+    # print(os.system("cd tmp_caff"))
+    # print(os.getcwd())
+    # os.system(os.getcwd()+"\\tmp_caff\\.\\parser.exe 1.caff")
+    # print(os.getcwd(), 'mi')
+    # subprocess.call([os.getcwd()+"\\tmp_caff\\parser.exe", '1.caff'], cwd=os.getcwd())
     app.run(debug=True)
