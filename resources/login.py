@@ -1,3 +1,5 @@
+import sys
+
 from flask import request
 from flask_restful import Resource
 from marshmallow import Schema, fields, ValidationError
@@ -32,7 +34,6 @@ class Login(Resource):
             credentials = self.schema.load(request.json)
             username = credentials['username']
             password = credentials['password']
-
             # credentials check
             return credentials_check(username, password)
 
@@ -55,7 +56,7 @@ def credentials_check(username, password):
         raise ValueError('User does not exist')
     if check_password(user, password):
         app.logger.info('Generating access token')
-        access_token = create_access_token(identity=user).decode('utf-8')
+        access_token = create_access_token(identity=user)
         return jsonify({'access_token': access_token})
     else:
         raise ValueError('Passwords do not match')
