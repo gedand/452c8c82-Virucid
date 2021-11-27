@@ -2,9 +2,8 @@
 # project specific
 datab/__pycache__
 resources/__pycache__
-files
 test.db
-tmp_caff
+
 
 ########################
 # IDE

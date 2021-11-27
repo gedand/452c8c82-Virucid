@@ -18,6 +18,7 @@ def parsing(file):
 
         tmp_folder = "tmp_caff/"
         filename = secure_filename(file.filename)
+        print(os.getcwd())
         newfile = open(tmp_folder + filename, "w")
         newfile.close()
         file.save(tmp_folder + filename)
@@ -28,7 +29,7 @@ def parsing(file):
 
         os.system("parser.exe " + filename)
 
-        txt_files = glob.glob("*.txt")
+        txt_files = glob.glob("*.txt") # TODO: uj parsernel majd .dat
         print(txt_files, len(txt_files))
         if len(txt_files) > 1:
             raise Exception('More than one .txts in /tmp_caff')

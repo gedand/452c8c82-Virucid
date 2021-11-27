@@ -15,9 +15,9 @@ class Download(Resource):
         try:
             user_id = get_jwt_identity()
             UserHelper.get_user(id=user_id)
-
+            print(CAFFFiles.query.all())
             DownloadValidator().validate(filename)
-            g = CAFFFiles.query.filter_by(caff_location=filename).first()
+            g = CAFFFiles.query.filter_by(filename=filename).first()
             if g is None:
                 raise ValueError("File couldn't be found in DB")
 
