@@ -79,7 +79,7 @@ def parsing(file):
         except Exception as e:
             app.logger.error(e)
 
-        return new_filename
+        return new_filename[:-4]
 
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
