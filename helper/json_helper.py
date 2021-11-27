@@ -8,8 +8,7 @@ class JsonHelper:
         # TODO: kommentek is menjenek hozzá
         for row in u:
             files[num] = {
-                "image": row.img_location,
-                "caff": row.caff_location
+                "caff": row.filename
             }
             num += 1
         return files

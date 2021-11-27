@@ -44,7 +44,7 @@ class Delete(Resource):
             if g is None:
                 raise ValueError("File ID couldn't be found in DB")
 
-            os.remove("files/" + g.caff_location)
+            os.remove("files/" + g.filename)
             db.session.delete(g)
             db.session.commit()
             return ErrorMessage.OK()

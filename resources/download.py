@@ -22,7 +22,7 @@ class Download(Resource):
                 raise ValueError("File couldn't be found in DB")
 
             # TODO: különválasztani, amikor kép, és amikor caff fájlt ad vissza
-            return send_from_directory(current_app.root_path, 'files/' + g.caff_location, as_attachment=True)
+            return send_from_directory(current_app.root_path, 'files/' + g.filename, as_attachment=True)
 
         except (ValidationError, ValueError) as v:
             app.logger.error(v)

@@ -57,12 +57,12 @@ class Upload(Resource):
             UserHelper.get_user(id=user_id)
             file = self.schema.load(request.files)['file']
             # parsing
-            caff_filename, jpeg_filename = parsing(file)  # TODO: Robival egyeztetni
-            if caff_filename is not None and jpeg_filename is not None:
+            caff_filename = parsing(file)  # TODO: Robival egyeztetni
+            if caff_filename is not None:
                 # send_path_with_date_to_database
                 # path_to_file = save_file(parsed_file).split('/')[-1]
                 # TODO: itt az img_location tényleg az img_locationra kéne vonatkozzon
-                file = CAFFFiles(date=date.today(), caff_location=caff_filename, img_location=jpeg_filename)
+                file = CAFFFiles(date=date.today(), filename=caff_filename)
                 db.session.add(file)
                 db.session.commit()
 

@@ -77,7 +77,7 @@ def user_identity_lookup(user):
 # census = db.Table('census', metadata, autoload=True, autoload_with=engine)
 
 # TODO: Kiszedni a végén a kommentet is
-# db.drop_all()
+#db.drop_all()
 db.create_all()
 
 api.add_resource(Registration, "/registration")
