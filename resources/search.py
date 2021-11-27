@@ -18,6 +18,7 @@ class SearchSchema(Schema):
     start_date = fields.Date('%Y-%m-%d')
     end_date = fields.Date('%Y-%m-%d')
 
+
 class Search(Resource):
     def __init__(self):
         super().__init__()
@@ -27,7 +28,7 @@ class Search(Resource):
     def get(self):
         try:
             user_id = get_jwt_identity()
-            UserHelper.get_user(id = user_id)
+            UserHelper.get_user(id=user_id)
             dates = self.schema.load(request.args)
             from_date, to_date = DateConverter.convert(dates)
             if (not from_date) and (not to_date):
@@ -36,11 +37,10 @@ class Search(Resource):
             else:
                 u = db.session.query(CAFFFiles).filter(
                     and_(CAFFFiles.date <= to_date,
-                            CAFFFiles.date >=from_date))
+                         CAFFFiles.date >= from_date))
 
             files = JsonHelper.search_to_json(u)
             return jsonify({'content': files})
-
 
         except (ValidationError, ValueError) as v:
             app.logger.error(v)
@@ -48,5 +48,3 @@ class Search(Resource):
         except Exception as e:
             app.logger.error(e)
             return ErrorMessage.server()
-
-    

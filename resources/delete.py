@@ -14,9 +14,11 @@ from helper.user_helper import UserHelper
 from validators.file_id_validator import FileIdValidator
 from helper.error_message import ErrorMessage
 
+
 def is_admin(is_admin):
     if not is_admin:
         raise ValidationError('Logged in user is not admin')
+
 
 class DeleteSchema(Schema):
         file_id = fields.Number(required=True,error_messages={"required": "File id is required."}, validate=FileIdValidator().validate)
