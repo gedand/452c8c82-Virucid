@@ -1,18 +1,16 @@
 import os
-from flask import request
-from flask import current_app as app
-from flask_jwt_extended.utils import get_jwt
-from flask_restful import Resource
-from flask import request
-from marshmallow import Schema, fields, ValidationError
 
 from datab.database import CAFFFiles
 from datab.shared import db
+from flask import current_app as app
+from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
-from helper.user_helper import UserHelper
-from validators.filename_validator import FileNameValidator
+from flask_jwt_extended.utils import get_jwt
+from flask_restful import Resource
 from helper.error_message import ErrorMessage
+from helper.user_helper import UserHelper
+from marshmallow import Schema, fields, ValidationError
+from validators.filename_validator import FileNameValidator
 
 
 def is_admin(is_admin):
@@ -22,7 +20,7 @@ def is_admin(is_admin):
 
 class DeleteSchema(Schema):
     filename = fields.Str(required=True, error_messages={"required": "Filename is required."},
-                            validate=FileNameValidator().validate)
+                          validate=FileNameValidator().validate)
 
 
 # TODO: fájlokkal együtt hozzátartozó kommentek törlése is
@@ -36,16 +34,17 @@ class Delete(Resource):
     def post(self):
         try:
             user_id = get_jwt_identity()
-            is_admin(get_jwt()['is_admin'])
+            # is_admin(get_jwt()['is_admin'])
             UserHelper.get_user(id=user_id)
             filename = self.schema.load(request.form)['filename']
-
-            file_in_db = CAFFFiles.query.filter_by(filename=filename).first()
+            filename_split = filename.split('.')
+            file_in_db = CAFFFiles.query.filter_by(filename=filename_split[0]).first()
 
             if file_in_db is None:
                 raise ValueError("File ID couldn't be found in DB")
 
-            os.remove("files/" + file_in_db.filename)
+            os.remove("files/caff/" + file_in_db.filename + ".caff")
+            os.remove("files/img/" + file_in_db.filename + ".jpg")
             db.session.delete(file_in_db)
             db.session.commit()
             return ErrorMessage.OK()
