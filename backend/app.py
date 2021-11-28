@@ -1,5 +1,5 @@
 from logging.config import dictConfig
-
+import os
 from Crypto.Random import get_random_bytes
 from flask import Flask
 from flask_jwt_extended import JWTManager
@@ -77,6 +77,15 @@ def user_identity_lookup(user):
 # TODO: Kiszedni a végén a kommentet is
 #db.drop_all()
 db.create_all()
+
+if not os.path.exists("files"):
+    os.makedirs("files")
+
+if not os.path.exists("files/caff"):
+    os.makedirs("files/caff")
+
+if not os.path.exists("files/img"):
+    os.makedirs("files/img")
 
 api.add_resource(Registration, "/registration")
 api.add_resource(Login, "/login")
