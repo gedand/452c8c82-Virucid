@@ -1,20 +1,14 @@
-from logging import error
-from flask import request
-from flask.json import jsonify
-from flask_restful import Resource
-from marshmallow import Schema, fields, ValidationError
+from Crypto.Random import get_random_bytes
 from datab.database import User
 from datab.shared import db
 from flask import current_app as app
-from flask_api import status
-from Crypto.Protocol.KDF import PBKDF2
-from Crypto.Hash import SHA512
-from Crypto.Random import get_random_bytes
-
-from validators.username_validator import UsernameValidator
-from validators.password_validator import PasswordValidator
-from helper.password_helper import PasswordHelper
+from flask import request
+from flask_restful import Resource
 from helper.error_message import ErrorMessage
+from helper.password_helper import PasswordHelper
+from marshmallow import Schema, fields, ValidationError
+from validators.password_validator import PasswordValidator
+from validators.username_validator import UsernameValidator
 
 
 class RegistrationSchema(Schema):

@@ -1,6 +1,3 @@
-from flask import current_app as app
-
-
 class ErrorMessage:
     def OK_content(content):
         return {

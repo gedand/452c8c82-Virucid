@@ -1,5 +1,7 @@
 import datetime
+
 from marshmallow import ValidationError
+
 
 class SearchValidator:
     validator_error = "Filename contains inappropriate characters"

@@ -1,27 +1,22 @@
-from flask import request, jsonify
-from flask import current_app as app
-from flask_restful import Resource
-from flask import request
-from marshmallow import Schema, fields, ValidationError
-
 from datab.database import CAFFComments, CAFFFiles
 from datab.shared import db
-from helper.json_helper import JsonHelper
-from helper.parsing import parsing
+from flask import current_app as app
+from flask import jsonify
+from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
+from flask_restful import Resource
+from helper.error_message import ErrorMessage
 from helper.user_helper import UserHelper
+from marshmallow import Schema, fields, ValidationError
 from validators.comment_validator import CommentValidator
 from validators.filename_validator import FileNameValidator
-from validators.upload_validator import UploadValidator
-from helper.error_message import ErrorMessage
 
 
 # TODO: hol adjuk vissza a frontendnek
 class CommentSchema(Schema):
     filename = fields.Str(required=True, error_messages={
-                            "required": "Filename is required."},
-                            validate=FileNameValidator().validate)
+        "required": "Filename is required."},
+                          validate=FileNameValidator().validate)
     comment = fields.Str(validate=CommentValidator().validate)
 
 
@@ -40,13 +35,13 @@ class Comment(Resource):
             filename = resp['filename']
             comment = resp['comment'] if 'comment' in resp else None
 
-            #lekérdezzük másik queryből a fájlnevet TODO
-
+            # lekérdezzük másik queryből a fájlnevet TODO
+            filename_split = filename.split('.')
             # id_exists
-            file_in_db = CAFFFiles.query.filter_by(filename=filename).first()
+            file_in_db = CAFFFiles.query.filter_by(filename=filename_split[0]).first()
             if file_in_db is None:
                 raise ValueError("File ID couldn't be found in DB")
-            
+
             file_id = file_in_db.id
 
             if comment:

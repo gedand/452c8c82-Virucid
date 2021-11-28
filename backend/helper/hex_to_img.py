@@ -33,7 +33,7 @@ def caff_to_jpeg(filename):
             k = k + 6
 
     img = Image.fromarray(data)  # Create a PIL image
-    img.show()
+    # img.show()
     name = "your_file.jpeg"
     img.save(name)
     return name

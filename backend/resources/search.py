@@ -1,17 +1,16 @@
 from operator import and_
 
-from flask_restful import Resource
-
 from datab.database import CAFFFiles
 from datab.shared import db
+from flask import current_app as app
+from flask import request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_restful import Resource
 from helper.date_converter import DateConverter
 from helper.error_message import ErrorMessage
 from helper.json_helper import JsonHelper
 from helper.user_helper import UserHelper
 from marshmallow import Schema, fields, ValidationError
-from flask import request, jsonify
-from flask import current_app as app
 
 
 class SearchSchema(Schema):

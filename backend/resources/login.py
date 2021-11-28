@@ -1,17 +1,14 @@
-import sys
-
-from flask import request
-from flask_restful import Resource
-from marshmallow import Schema, fields, ValidationError
 from datab.database import User
 from flask import current_app as app
-from helper.error_message import ErrorMessage
-from validators.username_validator import UsernameValidator
-from validators.password_validator import PasswordValidator
-from helper.password_helper import PasswordHelper
-
-from flask_jwt_extended import create_access_token
 from flask import jsonify
+from flask import request
+from flask_jwt_extended import create_access_token
+from flask_restful import Resource
+from helper.error_message import ErrorMessage
+from helper.password_helper import PasswordHelper
+from marshmallow import Schema, fields, ValidationError
+from validators.password_validator import PasswordValidator
+from validators.username_validator import UsernameValidator
 
 
 class LoginSchema(Schema):

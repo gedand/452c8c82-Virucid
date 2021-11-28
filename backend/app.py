@@ -1,7 +1,8 @@
-import os
-import subprocess
+from logging.config import dictConfig
 
+from Crypto.Random import get_random_bytes
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_restful import Api
 
 from datab.shared import db
@@ -12,9 +13,6 @@ from resources.login import Login
 from resources.registration import Registration
 from resources.search import Search
 from resources.upload import Upload
-from logging.config import dictConfig
-from Crypto.Random import get_random_bytes
-from flask_jwt_extended import JWTManager
 
 # Configure logging first
 dictConfig({

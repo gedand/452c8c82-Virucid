@@ -1,5 +1,6 @@
-from marshmallow import ValidationError
 import re
+
+from marshmallow import ValidationError
 
 
 class FileNameValidator:
@@ -12,7 +13,7 @@ class FileNameValidator:
             extension = filename.split('.')[1]
         except IndexError:
             raise ValueError("Input format is not in correct form")
-            
+
         if not re.fullmatch(r"[0-9a-z]+", name_trimmed):
             raise ValidationError(self.validator_error)
         accepted_extensions = ['jpg', 'jpeg', 'png']

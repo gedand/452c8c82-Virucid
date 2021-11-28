@@ -1,22 +1,19 @@
-import os
 import string
-import sys
 from datetime import date
 from random import SystemRandom
 
+from datab.database import CAFFFiles
+from datab.shared import db
 from flask import current_app as app
 from flask import jsonify
 from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Resource
-from marshmallow import Schema, fields, ValidationError
-
-from datab.database import CAFFFiles
-from datab.shared import db
 from helper.error_message import ErrorMessage
 from helper.json_helper import JsonHelper
 from helper.parsing import parsing
 from helper.user_helper import UserHelper
+from marshmallow import Schema, fields, ValidationError
 from validators.upload_validator import UploadValidator
 
 
@@ -57,11 +54,10 @@ class Upload(Resource):
             UserHelper.get_user(id=user_id)
             file = self.schema.load(request.files)['file']
             # parsing
-            caff_filename = parsing(file)  # TODO: Robival egyeztetni
+            caff_filename = parsing(file)
             if caff_filename is not None:
                 # send_path_with_date_to_database
                 # path_to_file = save_file(parsed_file).split('/')[-1]
-                # TODO: itt az img_location tényleg az img_locationra kéne vonatkozzon
                 file = CAFFFiles(date=date.today(), filename=caff_filename)
                 db.session.add(file)
                 db.session.commit()

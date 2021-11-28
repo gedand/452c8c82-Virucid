@@ -5,11 +5,9 @@ import string
 import sys
 from random import SystemRandom
 
-from werkzeug.utils import secure_filename
-
 from flask import current_app as app
-from helper.error_message import ErrorMessage
 from helper.hex_to_img import caff_to_jpeg
+from werkzeug.utils import secure_filename
 
 
 def parsing(file):
@@ -18,7 +16,7 @@ def parsing(file):
 
         tmp_folder = "tmp_caff/"
         filename = secure_filename(file.filename)
-        print(os.getcwd())
+        # print(os.getcwd())
         newfile = open(tmp_folder + filename, "w")
         newfile.close()
         file.save(tmp_folder + filename)
@@ -29,13 +27,13 @@ def parsing(file):
 
         os.system("parser.exe " + filename)
 
-        txt_files = glob.glob("*.txt") # TODO: uj parsernel majd .dat
-        print(txt_files, len(txt_files))
+        txt_files = glob.glob("*.txt")  # TODO: uj parsernel majd .dat
+        # print(txt_files, len(txt_files))
         if len(txt_files) > 1:
             raise Exception('More than one .txts in /tmp_caff')
 
         jpeg_filename = caff_to_jpeg(txt_files[0])
-        print(jpeg_filename)
+        # print(jpeg_filename)
         os.chdir(path)
 
         # fájlok átrakása

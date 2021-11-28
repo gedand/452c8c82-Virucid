@@ -1,11 +1,10 @@
 import os
 
-from datab.database import CAFFFiles
+from datab.database import CAFFFiles, CAFFComments
 from datab.shared import db
 from flask import current_app as app
 from flask import request
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from flask_jwt_extended.utils import get_jwt
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from flask_restful import Resource
 from helper.error_message import ErrorMessage
 from helper.user_helper import UserHelper
@@ -23,8 +22,6 @@ class DeleteSchema(Schema):
                           validate=FileNameValidator().validate)
 
 
-# TODO: fájlokkal együtt hozzátartozó kommentek törlése is
-# TODO: nem csak a CAFF, hanem IMG fájl törlése is
 class Delete(Resource):
     def __init__(self):
         super().__init__()
@@ -34,7 +31,7 @@ class Delete(Resource):
     def post(self):
         try:
             user_id = get_jwt_identity()
-            # is_admin(get_jwt()['is_admin'])
+            is_admin(get_jwt()['is_admin'])
             UserHelper.get_user(id=user_id)
             filename = self.schema.load(request.form)['filename']
             filename_split = filename.split('.')
@@ -47,9 +44,8 @@ class Delete(Resource):
             os.remove("files/img/" + file_in_db.filename + ".jpg")
             db.session.delete(file_in_db)
             db.session.commit()
+            delete_comments(file_in_db.id)
             return ErrorMessage.OK()
-
-
 
         except (ValidationError, ValueError) as v:
             app.logger.error(v)
@@ -57,3 +53,9 @@ class Delete(Resource):
         except Exception as e:
             app.logger.error(e)
             return ErrorMessage.server()
+
+
+def delete_comments(file_id):
+    q = CAFFComments.query.filter_by(file_id=file_id)
+    for row in q:
+        db.session.delete(row)
