@@ -3,14 +3,13 @@ from operator import and_
 from datab.database import CAFFFiles
 from datab.shared import db
 from flask import current_app as app
-from flask import request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask import jsonify, request
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
 from helper.date_converter import DateConverter
 from helper.error_message import ErrorMessage
-from helper.json_helper import JsonHelper
 from helper.user_helper import UserHelper
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import Schema, ValidationError, fields
 
 
 class SearchSchema(Schema):
@@ -31,15 +30,17 @@ class Search(Resource):
             dates = self.schema.load(request.args)
             from_date, to_date = DateConverter.convert(dates)
             if (not from_date) and (not to_date):
-                # Nincs definiálva a szekvencia diagramon TODO: maybe hozzáadás
-                u = CAFFFiles.query.all()
+                q = CAFFFiles.query.all()
             else:
-                u = db.session.query(CAFFFiles).filter(
+                q = db.session.query(CAFFFiles).filter(
                     and_(CAFFFiles.date <= to_date,
                          CAFFFiles.date >= from_date))
 
-            files = JsonHelper.search_to_json(u)
-            return jsonify({'content': files})
+            ret_files = []
+
+            for row in q:
+                ret_files.append(row.filename)
+            return jsonify({'files': ret_files})
 
 
         except (ValidationError, ValueError) as v:

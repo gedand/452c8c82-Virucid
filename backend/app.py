@@ -1,11 +1,15 @@
-from logging.config import dictConfig
 import os
+from logging.config import dictConfig
+
 from Crypto.Random import get_random_bytes
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 
+from datab.database import User
 from datab.shared import db
+from helper.admin_helper import AdminHelper
+from helper.password_helper import PasswordHelper
 from resources.comment import Comment
 from resources.delete import Delete
 from resources.download import Download
@@ -45,7 +49,6 @@ app = Flask(__name__)
 api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db = SQLAlchemy(app)
 db.app = app
 db.init_app(app)
 
@@ -69,14 +72,10 @@ def user_identity_lookup(user):
     return user.id
 
 
-# engine = db.create_engine('sqlite:///census.sqlite')
-# connection = engine.connect()
-# metadata = db.MetaData()
-# census = db.Table('census', metadata, autoload=True, autoload_with=engine)
-
-# TODO: Kiszedni a végén a kommentet is
-#db.drop_all()
+# db.drop_all()
 db.create_all()
+
+AdminHelper.add_admin_user()
 
 if not os.path.exists("files"):
     os.makedirs("files")
@@ -96,20 +95,4 @@ api.add_resource(Search, "/search")
 api.add_resource(Delete, "/delete")
 
 if __name__ == '__main__':
-    # print(os.getcwd())
-    # path = os.getcwd()
-    # os.chdir(os.getcwd()+"\\tmp_caff")
-    # print(os.getcwd())
-    # os.system("parser.exe 1.caff")
-    # os.chdir(path)
-    # print(os.getcwd())
-
-    # f = os.getcwd()+"\\tmp_caff\\parser.exe tmp_caff\\1.caff"
-    # print(f)
-    # os.system(f)
-    # print(os.system("cd tmp_caff"))
-    # print(os.getcwd())
-    # os.system(os.getcwd()+"\\tmp_caff\\.\\parser.exe 1.caff")
-    # print(os.getcwd(), 'mi')
-    # subprocess.call([os.getcwd()+"\\tmp_caff\\parser.exe", '1.caff'], cwd=os.getcwd())
     app.run(debug=True)

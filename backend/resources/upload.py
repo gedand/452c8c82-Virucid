@@ -10,31 +10,10 @@ from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Resource
 from helper.error_message import ErrorMessage
-from helper.json_helper import JsonHelper
 from helper.parsing import parsing
 from helper.user_helper import UserHelper
 from marshmallow import Schema, fields, ValidationError
 from validators.upload_validator import UploadValidator
-
-
-def save_file(file):
-    # TODO: elmentés és path visszadás
-    base_path = 'files/'
-    N = 16
-    exists = True
-    counter = 0
-    while exists and counter < 1000:
-        try:
-            name = ''.join(SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(N))
-            path = base_path + name + '.txt'
-            f = open(path, 'x')
-            exists = False
-        except:
-            counter += 1
-            pass
-
-    f.write(str(file))  # TODO: képként mentse a fájlt
-    return path
 
 
 class UploadSchema(Schema):
@@ -56,16 +35,17 @@ class Upload(Resource):
             # parsing
             caff_filename = parsing(file)
             if caff_filename is not None:
-                # send_path_with_date_to_database
-                # path_to_file = save_file(parsed_file).split('/')[-1]
                 file = CAFFFiles(date=date.today(), filename=caff_filename)
                 db.session.add(file)
                 db.session.commit()
+                q = CAFFFiles.query.all()
 
-                # return str(path_to_file)  # TODO: --- real
-                files = JsonHelper.search_to_json(
-                    CAFFFiles.query.all())  # TODO: most mindent listáz, bár nem feltétlen baj
-                return jsonify({"content": files})
+                ret_files = []
+
+                for row in q:
+                    ret_files.append(row.filename)
+                return jsonify({'files': ret_files})
+
             else:
                 raise ValueError('Parsed_file is None')
 

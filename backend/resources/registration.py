@@ -30,7 +30,7 @@ class Registration(Resource):
             # Validates input
             credentials = self.schema.load(request.form)
             username = credentials['username']
-            password_hash, salt = self.hash_password(credentials['password'])
+            password_hash, salt = PasswordHelper.hash_register(credentials['password'])
             guest = User(username=username, password=password_hash, salt=salt, is_admin=0)
             db.session.add(guest)
             db.session.commit()

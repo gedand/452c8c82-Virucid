@@ -11,21 +11,12 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
-    def to_json(self):
-        user_object = {
-            'username': self.username,
-            'access_token': self.access_token
-        }
-
-
 class CAFFFiles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, unique=False, nullable=False)
     filename = db.Column(db.String, unique=True, nullable=False)
-    # img_location = db.Column(db.String, unique=True, nullable=False)
 
     def __repr__(self):
-        # return " - ".join(['CAFF', str(self.id), str(self.date), str(self.location)])
         return "||".join([str(self.id), str(self.filename)])
 
 

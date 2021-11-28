@@ -3,6 +3,13 @@
 datab/__pycache__
 resources/__pycache__
 test.db
+*.caff
+*.jpg
+*.png
+*.jpeg
+admin_pass
+tmp_caff
+!tmp_caff/parser.exe
 
 
 ########################

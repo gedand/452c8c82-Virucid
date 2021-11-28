@@ -11,8 +11,6 @@ from marshmallow import Schema, fields, ValidationError
 from validators.comment_validator import CommentValidator
 from validators.filename_validator import FileNameValidator
 
-
-# TODO: hol adjuk vissza a frontendnek
 class CommentSchema(Schema):
     filename = fields.Str(required=True, error_messages={
         "required": "Filename is required."},
@@ -52,8 +50,7 @@ class Comment(Resource):
             q = CAFFComments.query.filter_by(file_id=file_id)
 
             ret_comments = []
-            num = 1
-            # TODO: kommentek is menjenek hozzá
+
             for row in q:
                 ret_comments.append(row.comment)
             return jsonify({'comments': ret_comments})
