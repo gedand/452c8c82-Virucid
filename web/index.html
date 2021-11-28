@@ -31,7 +31,7 @@
     <link id="color-scheme" href="assets/css/default.css" rel="stylesheet">
    
   </head>
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+  <body data-spy="scroll" data-target=".onpage-navigation" onload="onloadContent()" data-offset="60">
     <main>
       <div class="page-loader">
         <div class="loader">Loading...</div>
@@ -45,6 +45,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#totop">Home</a></li>
               <li><a class="section-scroll" href="#works">Pictures</a></li>
+              <li><input type="file" id="avatars"></li>
               <li><a class="section-scroll" href="login_register.html">Log Out</a></li>
             </ul>
           </div>
