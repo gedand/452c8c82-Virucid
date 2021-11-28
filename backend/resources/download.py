@@ -10,11 +10,10 @@ from validators.download_validator import DownloadValidator
 
 
 class Download(Resource):
-    @jwt_required()
+
+    # accessible globally
     def get(self, filename):
         try:
-            user_id = get_jwt_identity()
-            UserHelper.get_user(id=user_id)
             DownloadValidator().validate(filename)
             filename_split = filename.split('.')
 
@@ -22,13 +21,17 @@ class Download(Resource):
             if g is None:
                 raise ValueError("File couldn't be found in DB")
 
-            subfolder = 'img'
             if filename_split[1] == 'caff':
-                subfolder = 'caff'
-
-            return send_from_directory(current_app.root_path,
-                                       'files/' + subfolder + '/' + g.filename + '.' + filename_split[1],
+                return send_from_directory(current_app.root_path,
+                                       'files/' + 'caff' + '/' + g.filename + '.' + filename_split[1],
                                        as_attachment=True)
+            else:
+                return send_from_directory(current_app.root_path,
+                                       'files/' + 'img' + '/' + g.filename + '.' + filename_split[1],
+                                       as_attachment=False)
+                
+
+            
 
         except (ValidationError, ValueError) as v:
             app.logger.error(v)
