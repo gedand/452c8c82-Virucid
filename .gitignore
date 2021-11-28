@@ -10,6 +10,7 @@ test.db
 admin_pass
 tmp_caff
 !tmp_caff/parser.exe
+!backend/docs/*
 
 
 ########################
@@ -120,7 +121,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+# docs/_build/
 
 # PyBuilder
 target/
@@ -167,3 +168,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
