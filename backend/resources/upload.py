@@ -14,6 +14,7 @@ from helper.parsing import parsing
 from helper.user_helper import UserHelper
 from marshmallow import Schema, fields, ValidationError
 from validators.upload_validator import UploadValidator
+from validators.filename_validator import FileNameValidator
 
 
 class UploadSchema(Schema):
@@ -32,6 +33,12 @@ class Upload(Resource):
             user_id = get_jwt_identity()
             UserHelper.get_user(id=user_id)
             file = self.schema.load(request.files)['file']
+
+            extension = file.filename.split('.')[1]
+            accepted_extensions = ['caff']
+            if extension not in accepted_extensions:
+                raise ValidationError("Filename has unsupported extension")
+
             # parsing
             caff_filename = parsing(file)
             if caff_filename is not None:
