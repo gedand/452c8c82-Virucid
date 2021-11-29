@@ -27,12 +27,12 @@ class Delete(Resource):
         super().__init__()
         self.schema = DeleteSchema()
 
-    @jwt_required()
+    #@jwt_required()
     def post(self):
         try:
-            user_id = get_jwt_identity()
-            is_admin(get_jwt()['is_admin'])
-            UserHelper.get_user(id=user_id)
+            #user_id = get_jwt_identity()
+            #is_admin(get_jwt()['is_admin'])
+            #UserHelper.get_user(id=user_id)
             filename = self.schema.load(request.form)['filename']
             filename_split = filename.split('.')
             file_in_db = CAFFFiles.query.filter_by(filename=filename_split[0]).first()

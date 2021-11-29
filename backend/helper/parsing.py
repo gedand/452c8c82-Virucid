@@ -76,7 +76,17 @@ def parsing(file):
         return new_filename[:-4]
 
     except Exception as e:
+        os.chdir(path)
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         print(exc_type, exc_obj, fname, exc_tb.tb_lineno)
+
+        path = os.getcwd()
+        os.chdir(path + "\\tmp_caff")
+        files = os.listdir()
+
+        for item in files:
+            if not item.endswith("parser.exe"):
+                os.remove(item)
+        os.chdir(path)
         app.logger.error(e)

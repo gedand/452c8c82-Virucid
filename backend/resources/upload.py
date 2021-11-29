@@ -34,11 +34,6 @@ class Upload(Resource):
             UserHelper.get_user(id=user_id)
             file = self.schema.load(request.files)['file']
 
-            extension = file.filename.split('.')[1]
-            accepted_extensions = ['caff']
-            if extension not in accepted_extensions:
-                raise ValidationError("Filename has unsupported extension")
-
             # parsing
             caff_filename = parsing(file)
             if caff_filename is not None:
