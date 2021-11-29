@@ -72,7 +72,7 @@ def user_identity_lookup(user):
     return user.id
 
 
-# db.drop_all()
+db.drop_all()
 db.create_all()
 
 AdminHelper.add_admin_user()
