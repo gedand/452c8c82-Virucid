@@ -12,7 +12,7 @@ function picturesShow(array)
     var url="http://localhost:5000/download/";
     
 
-    for(i=1; i<=Object.keys(array.files).length-1;i++)
+    for(i=0; i<=Object.keys(array.files).length-1;i++)
     {
         var li=document.createElement('li');
         li.className="work-item"

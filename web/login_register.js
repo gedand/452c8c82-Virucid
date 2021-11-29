@@ -222,16 +222,12 @@ function loginPost(username,password)
         sessionStorage.setItem('token', responseObj.access_token);
         window.location.href = 'index.html';
       }
-      /*if(responseObj.status=="success")
-      {
-        alert(responseObj.message);
-      }
       else
       {
-        console.log(responseObj.status);
-        console.log(responseObj.message);
-        alert(responseObj.message);
-      }*/
+        //console.log(responseObj.status);
+        //console.log(responseObj.message);
+        alert("Username or Password is incorrect");
+      }
 
     }};
     xhr.send(jsonData);
