@@ -7,7 +7,6 @@ Our application was implemented using Python3 and Flask web framework. We used a
 - **pycryptodome**: used for password hashing
 - **SQLAlchemy**: used for communicating with the database
 
-
 ## Folder structure
 
 - **config**: stores admin's password (`admin_pass`) that is being set up after the server started
@@ -21,3 +20,12 @@ Our application was implemented using Python3 and Flask web framework. We used a
 - **validators:** function for input validation of parameters
 - **`app.py`:** main Flask component of our app
 - **`requirements.txt`:** Python needed dependencies
+
+
+## Error handling
+
+In our application, every endpoint is protected by a try-except block. We log every exception or unnormal activity to `api.log` file but for the user, we return only general information as a response.
+
+## Validation
+
+In the application, we validate every input on the server-side. For that, we used the customizable Marshmallow library. The most important goal was not to allow any kind of data that is not in an appropriate format, avoiding any kind of malicious attempt. We have to mention here that the usage of SQLAlchemy itself protects the app against some kind of attacks, for example SQL injection.
