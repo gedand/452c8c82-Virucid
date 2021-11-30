@@ -59,22 +59,29 @@
       </nav>
       <div class="main" style="height: auto; width: 65%;display: block;margin-left: auto;margin-right: auto;">
         <a href="assets/images/section-4.jpg" download="awesome_picture.jpg">
-        <img style="border:2px solid black; border-radius: 2%; box-shadow: 0px 0px 20px;" id="mainImage" src="assets/images/section-4.jpg" >
+        <img style="border:2px solid black; border-radius: 2%; box-shadow: 0px 0px 20px;" id="mainImage" src="assets/images/single_imagebg.jpg" >
       </a>
         <div class="container">
           <div class="row">
               <div class="col-sm-5 col-md-6 col-12 pb-4" id="commentDiv">
                   <h1>Comments</h1>
                   <input type="text" id="commentInput">
-                  <button type="button" id="commentButton" onclick="commentUploadPost()">Comment</button>
-                  <button type="button" id="deleteButton" onclick="deleteImagePost()">Delete</button>
-                  <button type="button" id="downloadButton" onclick="downloadImagePng()">Download as PNG</button>
-                  <button type="button" id="downloadButton" onclick="downloadImageCaff()">Download as CAFF</button>
-                  <button type="button" id="uploadButton" onclick="uploadImagePost()">Upload</button>
+                  <button class="button-singleimage" type="button" id="commentButton" onclick="commentUploadPost()">COMMENT</button>
+                  <button class="button-singleimage" type="button" id="deleteButton" onclick="deleteImagePost()">DELETE</button>
+                  <button class="button-singleimage" type="button" id="downloadButton" onclick="downloadImageCaff()">DOWNLOAD AS CAFF</button>
               </div>
             </div>
           </div>
-        
+        <style>
+          .button-singleimage{
+            border-radius: 5px;
+            font: "Robo Condensed";
+            font-size: 11px;
+
+          }
+
+
+        </style>
        
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>

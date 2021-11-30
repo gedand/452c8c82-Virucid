@@ -44,20 +44,40 @@
           <div class="collapse navbar-collapse" id="custom-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#totop">Home</a></li>
-              <li><a class="section-scroll" href="#works">Pictures</a></li>
-              <li><input type="file" id="avatars"></li>
+              <li>
+                <label for="avatars">
+                  <a class="section-scroll uploadlabel">
+                    Upload
+                  </a>
+                </label>
+              </li>
+              
               <li><a class="section-scroll" href="login_register.html">Log Out</a></li>
+              <li><input type="file" id="avatars" style="visibility: hidden;"></li>
+              
             </ul>
           </div>
         </div>
       </nav>
-    
-      <section class="home-section home-full-height bg-dark bg-gradient" id="home" data-background="assets/images/section-10.jpg">
+      <style>
+        .uploadlabel{
+            color: #FFFFFFB3;
+            font-size: 11px;
+            font: "Robo Condensed";
+            padding: 15px;
+            float: left;
+            
+        }
+        .uploadlabel:hover{
+          color: #FFFFFF;
+        }
+
+      </style>
+      <section class="home-section home-full-height bg-dark bg-gradient" id="home" data-background="assets/images/bg.jpg">
         <div class="titan-caption">
           <div class="caption-content">
-            <div class="font-alt mb-30 titan-title-size-1">Szia &amp; helló</div>
-            <div class="font-alt mb-40 titan-title-size-4">We are virucid</div><a class="section-scroll btn btn-border-w btn-round" href="#">Kérlek ide még ne kattints</a>
-          </div>
+            <div class="font-alt mb-30 titan-title-size-1">Üdv halandó</div>
+            <div class="font-alt mb-40 titan-title-size-4">We are virucid</div>
         </div>
       </section>
       <div class="main">
