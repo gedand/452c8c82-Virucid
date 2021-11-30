@@ -1,0 +1,1 @@
+The executable of the CAFF parser is placed here. As we tested the app on Windows, we put an .exe file here. On other operating systems and distributions it can be another file. The exact process of making an executable file for CAFF parser is described in the CAFF parser directory.
