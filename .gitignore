@@ -11,6 +11,7 @@ admin_pass
 tmp_caff
 !tmp_caff/parser.exe
 !backend/docs/*
+!backend/docs/postman/*
 
 
 ########################
