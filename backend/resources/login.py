@@ -54,9 +54,10 @@ def credentials_check(username, password):
     if check_password(user, password):
         app.logger.info('Generating access token')
         access_token = create_access_token(identity=user)
+        app.logger.info('User ' + username + ' successfully logged in')
         return jsonify({'access_token': access_token})
     else:
-        raise ValueError('Passwords do not match')
+        raise ValueError('Passwords do not match for user ' + username)
 
 
 def check_password(user_in_db, password):

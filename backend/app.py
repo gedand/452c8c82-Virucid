@@ -52,6 +52,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.app = app
 db.init_app(app)
 
+# File size limit
+app.config['MAX_CONTENT_LENGTH'] =20 * 1024 * 1024
+
 # JWT Token init
 app.config['JWT_SECRET_KEY'] = get_random_bytes(32)
 jwt = JWTManager(app)
