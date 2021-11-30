@@ -1,0 +1,484 @@
+{
+	"info": {
+		"_postman_id": "7275a7c5-011d-45e3-80cd-f331bbe6d994",
+		"name": "SzBizt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test\",\r\n    \"password\": \"Testpassw0rd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test4",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Testpassw0rd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Example with a full fledged SDK Request\r",
+							"const echoPostRequest = {\r",
+							"  url: 'http://localhost:5000/login',\r",
+							"  method: 'POST',\r",
+							"  header: 'Content-Type: application/json',\r",
+							"  body: {\r",
+							"    mode: 'raw',\r",
+							"    raw: JSON.stringify({ \r",
+							"        \r",
+							"        //\"username\": \"pm.environment.get(\"username\")\",\r",
+							"        //\"password\": pm.environment.get(\"password\")\r",
+							"        \"username\": \"test\",\r",
+							"        \"password\": \"Testpassw0rd\"\r",
+							"    })\r",
+							"  }\r",
+							"};\r",
+							"pm.sendRequest(echoPostRequest, function (err, res) {\r",
+							"    if (err) { console.log(err); }\r",
+							"    pm.environment.set(\"accessToken\", res.json().access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/download/f8adfla9gd77rtxi.txt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"download",
+						"f8adfla9gd77rtxi.txt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Example with a full fledged SDK Request\r",
+							"const echoPostRequest = {\r",
+							"  url: 'http://localhost:5000/login',\r",
+							"  method: 'POST',\r",
+							"  header: 'Content-Type: application/json',\r",
+							"  body: {\r",
+							"    mode: 'raw',\r",
+							"    raw: JSON.stringify({ \r",
+							"        \r",
+							"        //\"username\": \"pm.environment.get(\"username\")\",\r",
+							"        //\"password\": pm.environment.get(\"password\")\r",
+							"        \"username\": \"test\",\r",
+							"        \"password\": \"Testpassw0rd\"\r",
+							"    })\r",
+							"  }\r",
+							"};\r",
+							"pm.sendRequest(echoPostRequest, function (err, res) {\r",
+							"    if (err) { console.log(err); }\r",
+							"    pm.environment.set(\"accessToken\", res.json().access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/search?end_date=2021-12-21&start_date=2021-10-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "end_date",
+							"value": "2021-12-21"
+						},
+						{
+							"key": "start_date",
+							"value": "2021-10-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Example with a full fledged SDK Request\r",
+							"const echoPostRequest = {\r",
+							"  url: 'http://localhost:5000/login',\r",
+							"  method: 'POST',\r",
+							"  header: 'Content-Type: application/json',\r",
+							"  body: {\r",
+							"    mode: 'raw',\r",
+							"    raw: JSON.stringify({ \r",
+							"        //\"username\": \"pm.environment.get(\"username\")\",\r",
+							"        //\"password\": pm.environment.get(\"password\")\r",
+							"        \"username\": \"test\",\r",
+							"        \"password\": \"Testpassw0rd\"\r",
+							"    })\r",
+							"  }\r",
+							"};\r",
+							"pm.sendRequest(echoPostRequest, function (err, res) {\r",
+							"    if (err) { console.log(err); }\r",
+							"    pm.environment.set(\"accessToken\", res.json().access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "comment",
+							"value": "mifasz",
+							"type": "text"
+						},
+						{
+							"key": "file_id",
+							"value": "2",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"comment"
+					],
+					"query": [
+						{
+							"key": "comment",
+							"value": "dsgsdghsadghagaeh",
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": "edagg",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Example with a full fledged SDK Request\r",
+							"const echoPostRequest = {\r",
+							"  url: 'http://localhost:5000/login',\r",
+							"  method: 'POST',\r",
+							"  header: 'Content-Type: application/json',\r",
+							"  body: {\r",
+							"    mode: 'raw',\r",
+							"    raw: JSON.stringify({ \r",
+							"        //\"username\": \"pm.environment.get(\"username\")\",\r",
+							"        //\"password\": pm.environment.get(\"password\")\r",
+							"        \"username\": \"test\",\r",
+							"        \"password\": \"Testpassw0rd\"\r",
+							"    })\r",
+							"  }\r",
+							"};\r",
+							"pm.sendRequest(echoPostRequest, function (err, res) {\r",
+							"    if (err) { console.log(err); }\r",
+							"    pm.environment.set(\"accessToken\", res.json().access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/D:/OneDrive - Schönherz Zoltán Kollégium/BME/MSC/TANTARGYAK/2.FELEV/Számítógép Biztonság/HF/caff_files/2.caff"
+						},
+						{
+							"key": "gds",
+							"value": "h",
+							"type": "text",
+							"disabled": true
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Example with a full fledged SDK Request\r",
+							"const echoPostRequest = {\r",
+							"  url: 'http://localhost:5000/login',\r",
+							"  method: 'POST',\r",
+							"  header: 'Content-Type: application/json',\r",
+							"  body: {\r",
+							"    mode: 'raw',\r",
+							"    raw: JSON.stringify({ \r",
+							"        //\"username\": \"pm.environment.get(\"username\")\",\r",
+							"        //\"password\": pm.environment.get(\"password\")\r",
+							"        \"username\": \"test\",\r",
+							"        \"password\": \"Testpassw0rd\"\r",
+							"    })\r",
+							"  }\r",
+							"};\r",
+							"pm.sendRequest(echoPostRequest, function (err, res) {\r",
+							"    if (err) { console.log(err); }\r",
+							"    pm.environment.set(\"accessToken\", res.json().access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "gds",
+							"value": "h",
+							"type": "text",
+							"disabled": true
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
