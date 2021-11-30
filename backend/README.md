@@ -1,16 +1,10 @@
-API documentation is [HERE](https://github.com/gedand/452c8c82-Virucid/blob/main/backend/api.md)
+Our documentation can be found inside **docs** folder including API documentation, implementation documentation, and testing documentation. Link to /docs is [HERE](https://github.com/gedand/452c8c82-Virucid/tree/main/backend/docs) 
 
-Használat:
-
-Az alkalmazás Python3-mal működik.
-
-#Terminál 1 - Szerver inditás
+The backend works with Python3, installing needed libraries and starting server can be performed by:
 >pip install -r requirements.txt
 
 >python app.py
-#Terminál 2 - üzenet küldés
->python req.py
 
-Ha más üzenetet akarsz, akkor át kell írni a req.py-t
+
 
 
