@@ -1,3 +1,5 @@
+API documentation is [HERE](https://github.com/gedand/452c8c82-Virucid/blob/main/backend/api.md)
+
 Használat:
 
 Az alkalmazás Python3-mal működik.
