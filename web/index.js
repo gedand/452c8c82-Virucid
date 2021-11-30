@@ -56,11 +56,51 @@ function picturesShow(array)
     }
    
 }
+function filterPictures()
+{
+  var date1=document.getElementById('dateInput1');
+  var date2=document.getElementById('dateInput2');
+  var fd=new FormData();
+  fd.append('start_date',date1.value)
+  fd.append('end_date',date2.value);
 
+  var url = "http://localhost:5000/search";
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url);
+  var token=sessionStorage.getItem('token')
+  
+  xhr.setRequestHeader("Authorization", "Bearer "+token );
+  xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4) {
+      const responseObj = JSON.parse(xhr.responseText);
+    if(xhr.status==200)
+    {
+      picturesShow(responseObj);
+    }
+   
+
+  }};
+
+  xhr.send(fd);
+
+
+
+}
 function onloadContent()
 {
+  isTokenObtained()
   fileUpload1()
   picturesGet();
+}
+function isTokenObtained()
+{
+  var token=sessionStorage.getItem('token')
+  if(token===null)
+  {
+    window.location.href='login_register.html';
+  }
+
 }
 
 function fileUpload1()
@@ -87,9 +127,21 @@ const fileUpload = (file) => {
     xhr.setRequestHeader("Authorization", "Bearer "+token );
     
     // Log HTTP response
-    xhr.onload = () => {
-        console.log(xhr.response);
-    };
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+          const responseObj = JSON.parse(xhr.responseText);
+        if(xhr.status==200)
+        {
+          alert("File has been uploaded successfully")
+          picturesGet();
+        }
+        else
+        {
+          alert("Bad file format or there is an error in the file")
+        }
+       
+  
+      }};
 
     // Send XHR reqeust
     

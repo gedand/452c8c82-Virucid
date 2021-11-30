@@ -38,7 +38,7 @@ function commentUploadPost()
         const responseObj = JSON.parse(xhr.responseText);
       if(xhr.status==200)
       {
-        picturesShow(responseObj)
+        commentFetch();
       }
      
 
@@ -105,6 +105,7 @@ function generateComments(data)
 {
   //data=["見えないとこでバタ足するんです","見えないとこでバタ足するんです","見えないとこでバタ足するんです"];
   var div=document.getElementById('commentDiv');
+  removeAllChildNodes(div);
   for(i=0; i<=Object.keys(data.comments).length-1;i++)
     {
   var containerDiv=document.createElement('div');
@@ -141,6 +142,10 @@ function deleteImagePost()
     {
       window.location.href = 'index.html';
     }
+    else 
+    {
+      alert("Only admin can delete picture");
+    }
    
 
   }};
@@ -175,6 +180,12 @@ function downloadImageCaff()
 	el.remove();
 
 
+}
+function removeAllChildNodes(parent){
+  while(parent.firstChild)
+  {
+    parent.removeChild(parent.firstChild)
+  }
 }
 
 
