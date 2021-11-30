@@ -1,5 +1,13 @@
 # A brief implementation documentation
 
+## Overview
+Our application was implemented using Python3 and Flask web framework. We used a lot of Python libraries, but we would like to mention some more important here:
+- **Flask-JWT-Extended:** used for JWT tokens
+- **Marshmallow**: used for input validation
+- **pycryptodome**: used for password hashing
+- **SQLAlchemy**: used for communicating with the database
+
+
 ## Folder structure
 
 - **config**: stores admin's password (`admin_pass`) that is being set up after the server started
