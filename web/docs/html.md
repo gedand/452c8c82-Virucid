@@ -4,7 +4,7 @@ The website mainly uses [Bootstrap](https://getbootstrap.com) to get a proper la
 ## File structure
 - [index.html](https://github.com/gedand/452c8c82-Virucid/blob/main/web/index.html): Main page, every uploaded pictures can be found here.
 - [login_register.html](https://github.com/gedand/452c8c82-Virucid/blob/main/web/login_register.html): Starting page, before we could view/download any pictures, we have to register/login to the site.
-- [single_image.html](https://github.com/gedand/452c8c82-Virucid/blob/main/web/single_image.html): After clicking on any image found on the main page, we are redirected to this page, containing a single picture and all the comment for it.
+- [single_image.html](https://github.com/gedand/452c8c82-Virucid/blob/main/web/single_image.html): After clicking on any image found on the main page, we are redirected to this page, containing a single picture and all the comments for it.
 
 ## Login / Registration
 There is a single administrator by default, no more can be registered(The password setup is explained [here](https://github.com/gedand/452c8c82-Virucid/tree/main/backend/config))
