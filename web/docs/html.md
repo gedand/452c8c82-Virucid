@@ -1,6 +1,6 @@
 # Html documentation
 ## Overview
-The website mainly uses [Bootstrap](https://getbootstrap.com) to get a proper layout regardless what device we used to open it.
+The website mainly uses [Bootstrap](https://getbootstrap.com) to get a proper layout regardless of what device we used to open it.
 ## File structure
 - [index.html](https://github.com/gedand/452c8c82-Virucid/blob/main/web/index.html): Main page, every uploaded pictures can be found here.
 - [login_register.html](https://github.com/gedand/452c8c82-Virucid/blob/main/web/login_register.html): Starting page, before we could view/download any pictures, we have to register/login to the site.
