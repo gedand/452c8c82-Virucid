@@ -8,7 +8,13 @@ The website mainly uses [Bootstrap](https://getbootstrap.com) to get a proper la
 
 ## Login / Registration
 There is a single administrator by default, no more can be registered(The password setup is explained [here](https://github.com/gedand/452c8c82-Virucid/tree/main/backend/config))
+
+User login very simple.
+
+![User login](https://github.com/gedand/452c8c82-Virucid/blob/main/web/docs/pics/login.jpg)
+
 The basic user registration is very simple, but the password needs to meet certain requirements:
 - At least **10 characters** long
 - Needs to contains at least **1 number**, **1 lowercase** and **1 uppercase** character.
-- 
+
+![User registration](https://github.com/gedand/452c8c82-Virucid/blob/main/web/docs/pics/register.jpg)
