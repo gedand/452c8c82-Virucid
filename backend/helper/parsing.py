@@ -25,11 +25,11 @@ def parsing(file):
 
         os.system("parser.exe " + filename)
 
-        txt_files = glob.glob("*.txt")  # TODO: uj parsernel majd .dat
-        if len(txt_files) > 1:
-            raise Exception('More than one .txts in /tmp_caff')
+        dat_files = glob.glob("*.dat")
+        if len(dat_files) > 1:
+            raise Exception('More than one .dats in /tmp_caff')
 
-        jpeg_filename = caff_to_jpeg(txt_files[0])
+        jpeg_filename = caff_to_jpeg(dat_files[0])
         os.chdir(path)
 
         # fájlok átrakása
@@ -69,7 +69,7 @@ def parsing(file):
         except Exception as e:
             app.logger.error(e)
         try:
-            os.remove(source_path + txt_files[0])
+            os.remove(source_path + dat_files[0])
         except Exception as e:
             app.logger.error(e)
 

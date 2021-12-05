@@ -13,21 +13,7 @@ function RegisterValidationForm() {
       username.focus();
       return false;
     }
-    if(email.value == "") {
-      alert("Please enter a valid e-mail address.");
-      email.focus();
-      return false;
-    }
-    if(email.value.indexOf("@", 0) < 0) {
-      alert("Please enter a valid e-mail address.");
-      email.focus();
-      return false;
-    }
-    if(email.value.indexOf(".", 0) < 0) {
-      alert("Please enter a valid e-mail address.");
-      email.focus();
-      return false;
-    }
+    
     if(password.value == "") {
       alert("Please enter your password");
       password.focus();
